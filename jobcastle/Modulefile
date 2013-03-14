@@ -1,0 +1,11 @@
+name 'jobcastle'
+version '0.0.1'
+source 'git://github.com/mrbanzai/jc-puppet.git'
+author 'Michael Porter <michael@skookum.com>'
+summary 'JobCastle Puppet configuration'
+
+dependency 'puppetlabs/apache', '>= 0.4.0'
+dependency 'tPl0ch/composer', '>= 0.0.6'
+dependency 'puppetlabs/firewall', '>= 0.1.0'
+dependency 'puppetlabs/mysql', '>= 0.6.1'
+dependency 'puppetlabs/stdlib', '>= 3.2.0'
