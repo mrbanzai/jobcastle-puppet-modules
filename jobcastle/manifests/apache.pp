@@ -2,7 +2,8 @@ import 'utilities.rb'
 
 define jobcastle::apache (
   $port           = '80',
-  $docroot        = $jobcastle::params::docroot,
+  $docroot        = undef,
+  $logroot        = undef,
   $priority       = '10',
   $docroot_owner  = undef,
   $docroot_group  = undef,
@@ -42,6 +43,7 @@ define jobcastle::apache (
       priority            => $priority,
       port                => $port,
       docroot             => $docroot,
+      logroot             => $logroot,
       docroot_owner       => $docroot_owner,
       docroot_group       => $docroot_group,
       require             => [ Host[$name], File["${current_release_path}"] ],
@@ -54,6 +56,7 @@ define jobcastle::apache (
       priority            => $priority,
       port                => $port,
       docroot             => $docroot,
+      logroot             => $logroot,
       docroot_owner       => $docroot_owner,
       docroot_group       => $docroot_group,
       require             => [ Host[$name] ],
