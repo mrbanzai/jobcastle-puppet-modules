@@ -16,6 +16,3 @@
 [submodule "ssh_keygen"]
 	path = ssh_keygen
 	url = git://github.com/maestrodev/puppet-ssh_keygen
-[submodule "apache"]
-	path = apache
-	url = git://github.com/mrbanzai/puppetlabs-apache
