@@ -7,6 +7,7 @@ define jobcastle::apache (
   $priority       = '10',
   $docroot_owner  = undef,
   $docroot_group  = undef,
+  $environment_vars = {},
   $for_capistrano = false,
   $release_path   = undef,
   $current_release_path = undef
@@ -46,6 +47,7 @@ define jobcastle::apache (
       logroot             => $logroot,
       docroot_owner       => $docroot_owner,
       docroot_group       => $docroot_group,
+      environment_vars    => $environment_vars,
       require             => [ Host[$name], File["${current_release_path}"] ],
       configure_firewall  => true,
     }
@@ -59,6 +61,7 @@ define jobcastle::apache (
       logroot             => $logroot,
       docroot_owner       => $docroot_owner,
       docroot_group       => $docroot_group,
+      environment_vars    => $environment_vars,
       require             => [ Host[$name] ],
       configure_firewall  => true,
     }
