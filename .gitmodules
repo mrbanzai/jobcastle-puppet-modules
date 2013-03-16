@@ -1,6 +1,3 @@
-[submodule "apache"]
-	path = apache
-	url = git://github.com/puppetlabs/puppetlabs-apache
 [submodule "firewall"]
 	path = firewall
 	url = git://github.com/puppetlabs/puppetlabs-firewall
