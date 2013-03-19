@@ -1,6 +1,6 @@
 class jobcastle::base {
 
-    package { ['vim-enhanced', 'wget', 'curl', 'git']:
+    package { ['vim-enhanced', 'wget', 'curl']:
         ensure => latest
     }
 
