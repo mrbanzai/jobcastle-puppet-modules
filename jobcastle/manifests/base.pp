@@ -4,7 +4,4 @@ class jobcastle::base {
         ensure => latest
     }
 
-    package { ['rubygems', 'rubygem-net-ssh', 'rubygem-net-scp', 'rubygem-net-sftp']:
-        ensure => latest
-    }
 }
