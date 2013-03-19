@@ -8,7 +8,7 @@ class jobcastle::db(
   class { 'mysql::server': }
 
   file { '/tmp/jobcastle_db_init.sql':
-    source      => 'puppet:///modules/jobcastle/db-init.sql'
+    source      => 'puppet:///modules/jobcastle/tmp/db-init.sql'
   }
 
   mysql::db { $schema:
