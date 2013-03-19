@@ -7,6 +7,10 @@ class jobcastle(
   class { 'jobcastle::base': }
   class { 'mysql::php': }
 
+  package { 'php-tidy':
+    ensure => latest
+  }
+
   class { 'jobcastle::db':
     username    => $db_user,
     password    => $db_password,
