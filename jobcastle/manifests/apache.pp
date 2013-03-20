@@ -37,7 +37,7 @@ define jobcastle::apache (
     }
 
     file { "${capistrano_root}/shared/db.ini":
-      content => template('jobcastle/db.ini.erb'),
+      content => template('jobcastle/vhost/shared/db.ini.erb'),
       require => File["${capistrano_root}/shared"]
     }
 
