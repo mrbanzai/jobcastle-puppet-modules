@@ -21,6 +21,13 @@ define jobcastle::apache (
 
   if $for_capistrano {
 
+    file { "${capistrano_root}":
+      ensure => 'directory',
+      user => $docroot_owner,
+      group => $docroot_group,
+      recurse => true
+    }
+
     mkdir_p { "${capistrano_root}/releases/initial/public":
       require => Package['httpd']
     }
@@ -30,11 +37,15 @@ define jobcastle::apache (
 
     file { "${capistrano_root}/shared":
       ensure => 'directory',
+      user => $docroot_owner,
+      group => $docroot_group,
       require => File["${capistrano_root}"]
     }
 
     file { "${capistrano_root}/shared/db.ini":
       content => template('jobcastle/vhost/shared/db.ini.erb'),
+      user => $docroot_owner,
+      group => $docroot_group,
       require => File["${capistrano_root}/shared"]
     }
 
