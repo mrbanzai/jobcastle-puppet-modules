@@ -21,10 +21,7 @@ define jobcastle::apache (
 
   if $for_capistrano {
 
-    $release_path = "${capistrano_root}/releases"
-    $current_release_path = "${capistrano_root}/current"
-
-    mkdir_p { "${release_path}/initial/public":
+    mkdir_p { "${capistrano_root}/releases/initial/public":
       require => Package['httpd']
     }
 
@@ -41,18 +38,17 @@ define jobcastle::apache (
       require => File["${capistrano_root}/shared"]
     }
 
-    file { "${current_release_path}":
+    file { "${capistrano_root}/current":
       ensure => link,
       replace => false,
-      path => "${current_release_path}",
       target => 'releases/initial',
-      require => Mkdir_p["${release_path}/initial/public"]
+      require => Mkdir_p["${capistrano_root}/releases/initial/public"]
     }
 
-    file { "${release_path}_placeholder":
-      path    => "${release_path}/initial/public/index.html",
+    file { "${capistrano_root}/releases_placeholder":
+      path    => "${capistrano_root}/releases/initial/public/index.html",
       content => '<h1>JobCastle Initial Install</h1>',
-      require => Mkdir_p["${release_path}/initial/public"]
+      require => Mkdir_p["${capistrano_root}/releases/initial/public"]
     }
 
     apache::vhost { "${name}":
@@ -64,7 +60,7 @@ define jobcastle::apache (
       docroot_group       => $docroot_group,
       override           => 'All',
       environment_vars    => $environment_vars,
-      require             => [ Host[$name], File["${current_release_path}"] ],
+      require             => [ Host[$name], File["${capistrano_root}/current"] ],
       configure_firewall  => true,
     }
 
