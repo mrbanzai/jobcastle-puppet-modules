@@ -9,8 +9,7 @@ define jobcastle::apache (
   $docroot_group  = undef,
   $environment_vars = {},
   $for_capistrano = false,
-  $release_path   = undef,
-  $current_release_path = undef
+  $capistrano_root = undef
 ) {
 
   host { "${name}":
@@ -22,8 +21,24 @@ define jobcastle::apache (
 
   if $for_capistrano {
 
+    $release_path = "${capistrano_root}/releases"
+    $current_release_path = "${capistrano_root}/current"
+
     mkdir_p { "${release_path}/initial/public":
       require => Package['httpd']
+    }
+
+    # Setup shared resources (which must be in the `shared`
+    # folder) for Capistrano deployments
+
+    file { "${capistrano_root}/shared":
+      ensure => 'directory',
+      require => File["${capistrano_root}"]
+    }
+
+    file { "${capistrano_root}/shared/db.ini":
+      content => template('jobcastle/db.ini.erb'),
+      require => File["${capistrano_root}/shared"]
     }
 
     file { "${current_release_path}":

@@ -1,0 +1,26 @@
+[production]
+
+resources.db.params.host = localhost
+resources.db.params.username = <%= @db_app_user %>
+resources.db.params.password = <%= @db_app_password %>
+resources.db.params.dbname = <%= @db_app_schema %>
+
+[staging : production]
+
+resources.db.params.host = localhost
+resources.db.params.username = jobcastle
+resources.db.params.password = "c@m$uc@m"
+resources.db.params.dbname = jobcastle
+
+[development : staging]
+
+resources.db.params.host = localhost
+resources.db.params.username = jobcastle
+resources.db.params.password = "c@m$uc@m"
+resources.db.params.dbname = jobcastle
+
+[testing : development]
+
+[local : development]
+
+[localhost : development]
