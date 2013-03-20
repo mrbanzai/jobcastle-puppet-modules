@@ -5,11 +5,8 @@ class jobcastle(
 ) inherits jobcastle::params {
 
   class { 'jobcastle::base': }
-  class { 'mysql::php': }
 
-  package { 'php-tidy':
-    ensure => latest
-  }
+  class { 'jobcastle::php': }
 
   class { 'jobcastle::db':
     username    => $db_user,
