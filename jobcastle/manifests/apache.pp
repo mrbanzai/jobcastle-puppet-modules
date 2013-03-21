@@ -28,6 +28,13 @@ define jobcastle::apache (
       recurse => true
     }
 
+    file { "${capistrano_root}/releases":
+      ensure => 'directory',
+      owner => $docroot_owner,
+      group => $docroot_group,
+      recurse => true
+    }
+
     mkdir_p { "${capistrano_root}/releases/initial/public":
       require => Package['httpd']
     }
