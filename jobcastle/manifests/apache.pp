@@ -22,9 +22,7 @@ define jobcastle::apache (
 
   if $for_capistrano {
 
-    if !$docroot {
-      $docroot = "${capistrano_root}/current${capistrano_relative_docroot}"
-    }
+    $actual_docroot = $docroot || "${capistrano_root}/current${capistrano_relative_docroot}"
 
     file { "${capistrano_root}":
       ensure => 'directory',
@@ -77,7 +75,7 @@ define jobcastle::apache (
     apache::vhost { "${name}":
       priority            => $priority,
       port                => $port,
-      docroot             => $docroot,
+      docroot             => $actual_docroot,
       logroot             => $logroot,
       docroot_owner       => $docroot_owner,
       docroot_group       => $docroot_group,
