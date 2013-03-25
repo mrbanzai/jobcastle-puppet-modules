@@ -22,7 +22,10 @@ define jobcastle::apache (
 
   if $for_capistrano {
 
-    $actual_docroot = $docroot || "${capistrano_root}/current${capistrano_relative_docroot}"
+    $actual_docroot = $docroot ? {
+      undef => "${capistrano_root}/current${capistrano_relative_docroot}",
+      default => $docroot
+    }
 
     file { "${capistrano_root}":
       ensure => 'directory',
