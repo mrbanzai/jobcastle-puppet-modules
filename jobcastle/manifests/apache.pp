@@ -41,7 +41,7 @@ define jobcastle::apache (
       recurse => true
     }
 
-    mkdir_p { "${capistrano_root}/releases/initial{$capistrano_relative_docroot}":
+    mkdir_p { "${capistrano_root}/releases/initial${capistrano_relative_docroot}":
       require => Package['httpd']
     }
 
