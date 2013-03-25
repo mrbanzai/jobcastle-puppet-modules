@@ -9,7 +9,8 @@ define jobcastle::apache (
   $docroot_group  = undef,
   $environment_vars = {},
   $for_capistrano = false,
-  $capistrano_root = undef
+  $capistrano_root = undef,
+  $capistrano_relative_docroot = undef
 ) {
 
   host { "${name}":
@@ -20,6 +21,10 @@ define jobcastle::apache (
   include apache::mod::php
 
   if $for_capistrano {
+
+    if !$docroot {
+      $docroot = "${capistrano_root}/current${capistrano_relative_docroot}"
+    }
 
     file { "${capistrano_root}":
       ensure => 'directory',
@@ -35,7 +40,7 @@ define jobcastle::apache (
       recurse => true
     }
 
-    mkdir_p { "${capistrano_root}/releases/initial/public":
+    mkdir_p { "${capistrano_root}/releases/initial{$capistrano_relative_docroot}":
       require => Package['httpd']
     }
 
@@ -60,13 +65,13 @@ define jobcastle::apache (
       ensure => link,
       replace => false,
       target => 'releases/initial',
-      require => Mkdir_p["${capistrano_root}/releases/initial/public"]
+      require => Mkdir_p["${capistrano_root}/releases/initial${capistrano_relative_docroot}"]
     }
 
     file { "${capistrano_root}/releases_placeholder":
-      path    => "${capistrano_root}/releases/initial/public/index.html",
+      path    => "${capistrano_root}/releases/initial${capistrano_relative_docroot}/index.html",
       content => '<h1>JobCastle Initial Install</h1>',
-      require => Mkdir_p["${capistrano_root}/releases/initial/public"]
+      require => Mkdir_p["${capistrano_root}/releases/initial${capistrano_relative_docroot}"]
     }
 
     apache::vhost { "${name}":
