@@ -2,7 +2,7 @@ class jobcastle::php {
 
   class { 'mysql::php': }
 
-  package { 'php-tidy':
+  package { ['php-tidy', 'php-pecl-apc']:
     ensure => latest
   }
 
