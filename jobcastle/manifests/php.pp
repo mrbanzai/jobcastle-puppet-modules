@@ -2,7 +2,8 @@ class jobcastle::php {
 
   class { 'mysql::php': }
 
-  package { ['php-tidy', 'php-pecl-apc']:
+  # Yes, this is hardcoded for Fedora / Redhat packages
+  package { ['php-tidy', 'php-pecl-apc', 'php-mbstring']:
     ensure => latest
   }
 
@@ -12,6 +13,7 @@ class jobcastle::php {
     notify => Service['httpd']
   }
 
+  # Also hardcoded to the Fedora / Redhat way
   file { '/etc/php.d/browscap.ini':
     source => 'puppet:///modules/jobcastle/etc/php.d/browscap.ini',
     notify => Service['httpd'],
