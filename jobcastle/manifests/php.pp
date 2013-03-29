@@ -4,7 +4,8 @@ class jobcastle::php {
 
   # Yes, this is hardcoded for Fedora / Redhat packages
   package { ['php-tidy', 'php-pecl-apc', 'php-mbstring']:
-    ensure => latest
+    ensure => latest,
+    notify => Service['httpd']
   }
 
   file { '/etc/php_browscap.ini':
