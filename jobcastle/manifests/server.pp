@@ -9,4 +9,10 @@ class jobcastle::server {
 
     Class['mysql'] -> Exec['mysql_secure_installation']
 
+    service { 'ntpd':
+      enable => true,
+      ensure => running,
+      require => Package['ntp']
+    }
+
 }
