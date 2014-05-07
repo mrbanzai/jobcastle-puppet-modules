@@ -3,7 +3,7 @@ class jobcastle::php {
   class { 'mysql::php': }
 
   # Yes, this is hardcoded for Fedora / Redhat packages
-  package { ['php-tidy', 'php-pecl-apc', 'php-mbstring', 'php-dom']:
+  package { ['php-tidy', 'php-pecl-apc', 'php-mbstring', 'php-dom', 'php-pecl-ssh2']:
     ensure => latest,
     notify => Service['httpd']
   }

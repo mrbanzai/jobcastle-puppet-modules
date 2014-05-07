@@ -9,6 +9,10 @@ class jobcastle::server {
 
     Class['mysql'] -> Exec['mysql_secure_installation']
 
+    package { ['ntp', 'dstat']:
+      ensure => latest
+    }
+
     service { 'ntpd':
       enable => true,
       ensure => running,
