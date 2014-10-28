@@ -18,7 +18,10 @@ define jobcastle::apache (
     ip => '127.0.0.1'
   }
 
-  include apache
+  apache {
+    manage_user => false
+  }
+
   include apache::mod::php
 
   if $for_capistrano {
