@@ -3,9 +3,12 @@ class jobcastle::db(
   $password     = $jobcastle::params::db_password,
   $schema       = $jobcastle::params::db_name
 ) {
+  class { 'mysql::server':
+    remove_default_accounts => true,
+    root_password => ''
+  }
 
-  class { 'mysql': }
-  class { 'mysql::server': }
+  class { 'mysql::client': }
 
   file { '/tmp/jobcastle_db_init.sql':
     source      => 'puppet:///modules/jobcastle/tmp/db-init.sql'
