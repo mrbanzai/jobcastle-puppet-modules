@@ -4,8 +4,8 @@ class jobcastle::db(
   $schema       = $jobcastle::params::db_name
 ) {
   class { 'mysql::server':
-    remove_default_accounts => true,
-    root_password => ''
+    #remove_default_accounts => true,
+    #root_password => ''
   }
 
   class { 'mysql::client': }
