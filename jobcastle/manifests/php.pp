@@ -1,9 +1,11 @@
 class jobcastle::php {
 
-  class { 'mysql::php': }
+  class { 'mysql::bindings':
+    php_enable => true
+  }
 
   # Yes, this is hardcoded for Fedora / Redhat packages
-  package { ['php-tidy', 'php-pecl-apc', 'php-mbstring', 'php-dom', 'php-pecl-ssh2']:
+  package { ['php-tidy', 'php-pecl-apc', 'php-mbstring', 'php-xml', 'php-pecl-ssh2']:
     ensure => latest,
     notify => Service['httpd']
   }

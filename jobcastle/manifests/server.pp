@@ -2,12 +2,20 @@ class jobcastle::server {
 
     Exec { path => "/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/usr/kerberos/bin" }
 
-    # Equivalent to /usr/bin/mysql_secure_installation without providing or setting a password
-    exec { 'mysql_secure_installation':
-      command => '/usr/bin/mysql -uroot -e "DELETE FROM mysql.user WHERE User=\'\'; DELETE FROM mysql.user WHERE User=\'root\' AND Host NOT IN (\'localhost\', \'127.0.0.1\', \'::1\'); DROP DATABASE IF EXISTS test; FLUSH PRIVILEGES;" mysql'
+    yumrepo { 'fedora-archives':
+      ensure => present,
+      baseurl => 'http://archives.fedoraproject.org/pub/archive/fedora/linux/releases/$releasever/Everything/$basearch/os/',
+      gpgkey => 'http://archives.fedoraproject.org/pub/archive/fedora/linux/releases/$releasever/Everything/$basearch/os/RPM-GPG-KEY-fedora-$basearch',
+      enabled => true,
+      gpgcheck => true,
+      require => File['/etc/yum.repos.d']
     }
 
-    Class['mysql'] -> Exec['mysql_secure_installation']
+    file { '/etc/yum.repos.d':
+      ensure => directory,
+      recurse => true,
+      purge => true
+    }
 
     package { ['ntp', 'dstat']:
       ensure => latest
