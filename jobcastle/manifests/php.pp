@@ -23,7 +23,7 @@ class jobcastle::php {
   }
 
   # Yes, this is hardcoded for Fedora / Redhat packages
-  package { ['php-tidy', 'php-mbstring', 'php-xml', 'php-pecl-ssh2']:
+  package { ['php-tidy', 'php-mbstring', 'php-xml', 'php-pecl-ssh2', 'php-pecl-apcu']:
     ensure => latest,
     notify => Service['httpd'],
     require => $package_reqs
